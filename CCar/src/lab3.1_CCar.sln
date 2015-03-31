@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lab3.1_CCar", "lab3.1_CCar\lab3.1_CCar.vcxproj", "{EF8A0E48-CE6E-4DDE-A789-EFAF450BE13F}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CCar_tests", "CCar_tests\CCar_tests.vcxproj", "{A534BC0C-C77C-41C8-B38E-87EC24DF01D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF8A0E48-CE6E-4DDE-A789-EFAF450BE13F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EF8A0E48-CE6E-4DDE-A789-EFAF450BE13F}.Debug|Win32.Build.0 = Debug|Win32
+		{EF8A0E48-CE6E-4DDE-A789-EFAF450BE13F}.Release|Win32.ActiveCfg = Release|Win32
+		{EF8A0E48-CE6E-4DDE-A789-EFAF450BE13F}.Release|Win32.Build.0 = Release|Win32
+		{A534BC0C-C77C-41C8-B38E-87EC24DF01D8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A534BC0C-C77C-41C8-B38E-87EC24DF01D8}.Debug|Win32.Build.0 = Debug|Win32
+		{A534BC0C-C77C-41C8-B38E-87EC24DF01D8}.Release|Win32.ActiveCfg = Release|Win32
+		{A534BC0C-C77C-41C8-B38E-87EC24DF01D8}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
