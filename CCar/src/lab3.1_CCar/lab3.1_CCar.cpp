@@ -94,7 +94,7 @@ int main(int argc, char* argv[])
 			if (car.SetSpeed(speed))
 			{
 				cout << "Switching speed was successful.\n";
-				car.SetDirection();
+				//car.SetDirection(); // m_direction
 			}
 			else
 			{

@@ -4,10 +4,8 @@
 CCar::CCar()
 	:m_isTurnedOn(false)
 	,m_gear(0)
-	,m_direction(0)
 	,m_speed(0)
 {
-
 }
 
 CCar::~CCar()
@@ -35,7 +33,7 @@ bool CCar::TurnOffEngine()
 	{
 		return false;
 	}
-	if (m_gear == 0 && m_speed == 0)
+	if (m_gear == 0 && IsStopped())
 	{
 		m_isTurnedOn = false;
 		return true;
@@ -55,140 +53,114 @@ int CCar::GetSpeed()const
 
 int CCar::GetDirection()const
 {
-	return m_direction;
+	if (IsStopped())
+	{
+		return 0;
+	}
+	if (GetGear() >= 0 && !IsStopped())
+	{
+		return 1;
+	}
+	return -1;
 }
 
 bool CCar::SetGear(const int gear)
 {
-	if (gear >= -1 && gear <= 5)
+	if ((gear < -1) || (gear > 5))
 	{
-		if (!m_isTurnedOn && gear == 0)
+		return false;
+	}
+	if (!IsTurnedOn() && gear == 0)
+	{
+		m_gear = gear;
+		return true;
+	}
+	if (!IsTurnedOn())
+	{
+		return false;
+	}
+	if (!IsSpeedInRange(gear, m_speed))
+	{
+		return false;
+	}
+	if (gear == -1)
+	{
+		if (IsStopped())
+		{
+			m_gear = -1;
+			return true;
+		}
+		return false;
+	}
+	if (GetGear() == -1 && !IsStopped())
+	{
+		if (gear == 0)
 		{
 			m_gear = gear;
 			return true;
 		}
-		if (m_isTurnedOn)
-		{
-			if (gear == -1)
-			{
-				if (m_speed == 0)
-				{
-					m_gear = gear;
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			}
-			SetLowGearSpeed(gear);
-			SetHighGearSpeed(gear);
-			int direction = GetDirection();
-			if (m_speed >= m_lowGearSpeed && m_speed <= m_hignGearSpeed && m_direction == direction)
-			{
-				if (GetGear() == -1 && m_speed != 0)
-				{
-					if (gear == 0)
-					{
-						m_gear = gear;
-						return true;
-					}
-					return false;
-				}
-				else
-				{
-					if (GetGear() == 0 && m_speed != 0)
-					{
-						return false;
-					}
-				}
-				m_gear = gear;
-				return true;
-			}
-			return false;
-		}
 		return false;
 	}
-	return false;
-}
-
-void CCar::SetLowGearSpeed(const int gear)
-{
-	switch (gear)
+	else
 	{
-		case 2:
-			m_lowGearSpeed = 20;
-			break;
-		case 3:
-			m_lowGearSpeed = 30;
-			break;
-		case 4:
-			m_lowGearSpeed = 40;
-			break;
-		case 5:
-			m_lowGearSpeed = 50;
-			break;
-		default:
-			m_lowGearSpeed = 0;
-			break;
+		if (GetGear() == 0 && !IsStopped())
+		{
+			return false;
+		}
 	}
-}
-
-void CCar::SetHighGearSpeed(const int gear)
-{
-	switch (gear)
-	{
-	case -1:
-		m_hignGearSpeed = 20;
-		break;
-	case 1:
-		m_hignGearSpeed = 30;
-		break;
-	case 2:
-		m_hignGearSpeed = 50;
-		break;
-	case 3:
-		m_hignGearSpeed = 60;
-		break;
-	case 4:
-		m_hignGearSpeed = 90;
-		break;
-	case 5:
-		m_hignGearSpeed = 150;
-		break;
-	default:
-		m_hignGearSpeed = GetSpeed();
-		break;
-	}
+	m_gear = gear;
+	return true;
 }
 
 bool CCar::SetSpeed(const int speed)
 {
-	SetLowGearSpeed(m_gear);
-	SetHighGearSpeed(m_gear);
-	if (speed >= m_lowGearSpeed && speed <= m_hignGearSpeed)
+	if (!IsSpeedInRange(m_gear, speed))
 	{
-		m_speed = speed;
-		return true;
+		return false;
 	}
-	return false;
+	m_speed = speed;
+	return true;
 }
 
-void CCar::SetDirection()
+bool CCar::IsStopped() const
 {
-	if (GetGear() >= 0 && GetSpeed() > 0)
+	return m_speed == 0;
+}
+
+bool CCar::IsSpeedInRange(int gear, int speed) const
+{
+	int lowSpeed = 0;
+	int topSpeed = 0;
+	switch (gear)
 	{
-		m_direction = 1;
+	case -1:
+		lowSpeed = 0;
+		topSpeed = 20;
+		break;
+	case 1:
+		lowSpeed = 0;
+		topSpeed = 30;
+		break;
+	case 2:
+		lowSpeed = 20;
+		topSpeed = 50;
+		break;
+	case 3:
+		lowSpeed = 30;
+		topSpeed = 60;
+		break;
+	case 4:
+		lowSpeed = 40;
+		topSpeed = 90;
+		break;
+	case 5:
+		lowSpeed = 50;
+		topSpeed = 150;
+		break;
+	default:
+		lowSpeed = 0;
+		topSpeed = GetSpeed();
+		break;
 	}
-	else
-	{
-		if (GetSpeed() == 0)
-		{
-			m_direction = 0;
-		}
-		else
-		{
-			m_direction = -1;
-		}
-	}
+	return ((speed >= lowSpeed) && (speed <= topSpeed));
 }

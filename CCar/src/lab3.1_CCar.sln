@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lab3.1_CCar", "lab3.1_CCar\lab3.1_CCar.vcxproj", "{EF8A0E48-CE6E-4DDE-A789-EFAF450BE13F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CCar_tests", "CCar_tests\CCar_tests.vcxproj", "{A534BC0C-C77C-41C8-B38E-87EC24DF01D8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EF8A0E48-CE6E-4DDE-A789-EFAF450BE13F} = {EF8A0E48-CE6E-4DDE-A789-EFAF450BE13F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

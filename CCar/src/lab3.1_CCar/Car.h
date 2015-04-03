@@ -13,14 +13,10 @@ public:
 	int GetGear() const;
 	int GetDirection() const;
 	int GetSpeed() const;
-	void SetLowGearSpeed(const int gear);
-	void SetHighGearSpeed(const int gear);
-	void SetDirection();
+	bool IsStopped() const;
+	bool IsSpeedInRange(int gear, int speed) const;
 private:
 	bool m_isTurnedOn;
-	int m_direction;
 	int m_speed;
 	int m_gear;
-	int m_lowGearSpeed;
-	int m_hignGearSpeed;
 };
